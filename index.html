@@ -21,7 +21,7 @@
             <div class="col-md-6">
                 <div class="input-section half-width">
                     <input class="form-control" type="text" id="output-value">
-                    <div class="numbers">
+                    <div class="numbers" id="buttonContainer">
                         <div class="calc-body">
                             <div class="calc-button-row">
                               <div class="button">7</div>
@@ -39,15 +39,15 @@
                               <div class="button">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button">b</div>
+                                <div id="clearButton" class="button">b</div>
                                 <div class="button">0</div>
-                                <div class="button">C</div>
+                                <div id="deleteButton" class="button">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <button type="submit" class="submit-btn" id="submitButton">Submit</button>
+                                <p id="leftChance" class="action-left"> 3 try left</p>
                             </div>
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -59,6 +59,9 @@
 
 
    <script>
+
+
+
        const pinButton = document.getElementById('pinGenarate');
 
         pinButton.addEventListener('click', function(){
@@ -68,23 +71,59 @@
            
         }) 
 
-        const number = document.getElementsByClassName("button").value;
+        const number = document.getElementById("buttonContainer");
 
-        number.addEventListener('click', function(){
-            var display = document.getElementById('output-value');
-            display.value = "hi i am here "
+        number.addEventListener('click', function(event){
+            var number = event.target.innerText;
+            let display = document.getElementById('output-value').value;
+            if (isNaN(number)) {
+                display="";
+                
+            }
+            else{
+                document.getElementById('output-value').value = display +number;
+            }
+
             
+                     
         })
-        // for (let i = 0; i < number.length; i++) {
-        //     const button = number[i];
-        //     const display = document.getElementById('output-value')
-        //     display.value = number[i]
-            
-        // }
-            
-        // console.log(number)
-    
 
+        function verifyPin(){
+            const pinCode = document.getElementById("showPin").value;
+            const inputCode = document.getElementById("output-value").value;
+
+            if (pinCode === inputCode) {
+                document.getElementById("successTry").style.display = "block";  
+                document.getElementById("retry").style.display = "none"; 
+                document.getElementById("leftChance").innerHTML ="Congrats! You do it Succesfully" ; 
+                document.getElementById("leftChance").style.color = "green"
+            }
+            else{
+                document.getElementById("retry").style.display = "block";
+                document.getElementById("successTry").style.display = "none"; 
+            }
+        }
+        
+        const submitButton = document.getElementById("submitButton");
+        submitButton.addEventListener('click', verifyPin)
+
+
+        const deleteButton = document.getElementById('deleteButton');
+        deleteButton.addEventListener('click',function(event){
+            let inputCode = document.getElementById("output-value").value;
+            document.getElementById("output-value").value = inputCode.substr(0, inputCode.length -1);
+
+        })
+
+        const clearButton = document.getElementById('clearButton');
+        clearButton.addEventListener('click', function(){
+            let inputCode = document.getElementById("output-value");
+            inputCode.value = "";
+
+        })
+
+
+        
    </script>
 </body>
 </html>
