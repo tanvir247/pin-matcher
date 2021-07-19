@@ -45,7 +45,7 @@
                             </div>
                             <div>
                                 <button type="submit" class="submit-btn" id="submitButton">Submit</button>
-                                <p id="leftChance" class="action-left"> 3 try left</p>
+                                <p id="leftChance" class="action-left"><span id="clicks"> </span>try left</p>
                             </div>
                         </div>
                 </div>
@@ -56,6 +56,8 @@
             <p class="notify" id="successTry">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
+
+    <p id="result"></p>
 
 
    <script>
@@ -88,9 +90,23 @@
                      
         })
 
+
+        // var count = 3;
+        //     var btn = document.getElementById("submitButton");
+        //     var disp = document.getElementById("clicks");
+    
+        //     btn.onclick = function () {
+        //         count--;
+        //         disp.innerHTML = count;
+        // }
+       
+        
+
+
         function verifyPin(){
             const pinCode = document.getElementById("showPin").value;
             const inputCode = document.getElementById("output-value").value;
+            
 
             if (pinCode === inputCode) {
                 document.getElementById("successTry").style.display = "block";  
@@ -101,11 +117,15 @@
             else{
                 document.getElementById("retry").style.display = "block";
                 document.getElementById("successTry").style.display = "none"; 
+                document.getElementById("leftChance").innerHTML ="2 try left" ;
             }
         }
         
         const submitButton = document.getElementById("submitButton");
         submitButton.addEventListener('click', verifyPin)
+        
+        
+
 
 
         const deleteButton = document.getElementById('deleteButton');
@@ -121,6 +141,10 @@
             inputCode.value = "";
 
         })
+
+
+
+        var leftTry = document.getElementById('clicks').innerHTML;
 
 
         
