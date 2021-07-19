@@ -45,7 +45,7 @@
                             </div>
                             <div>
                                 <button type="submit" class="submit-btn" id="submitButton">Submit</button>
-                                <p id="leftChance" class="action-left"><span id="clicks"> </span>try left</p>
+                                <p id="leftChance" class="action-left"><span id="clicks">3 </span>try left</p>
                             </div>
                         </div>
                 </div>
@@ -64,6 +64,8 @@
 
 
 
+    // for create 4 degit pin code 
+
        const pinButton = document.getElementById('pinGenarate');
 
         pinButton.addEventListener('click', function(){
@@ -71,7 +73,8 @@
             document.getElementById('showPin').value = pin;
             
            
-        }) 
+        })
+    //to display pin code in input value
 
         const number = document.getElementById("buttonContainer");
 
@@ -90,22 +93,25 @@
                      
         })
 
-
-        // var count = 3;
-        //     var btn = document.getElementById("submitButton");
-        //     var disp = document.getElementById("clicks");
     
-        //     btn.onclick = function () {
-        //         count--;
-        //         disp.innerHTML = count;
-        // }
+
+//this one for limitation submit button
+        var count = 3;
+            var btn = document.getElementById("submitButton");
+            var disp = document.getElementById("clicks");
+    
+            btn.onclick = function () {
+                count--;
+                disp.innerHTML = count;
+        }
        
         
-
+//this function for pin verify in submit button
 
         function verifyPin(){
             const pinCode = document.getElementById("showPin").value;
             const inputCode = document.getElementById("output-value").value;
+            var disableButton= disp.innerHTML;
             
 
             if (pinCode === inputCode) {
@@ -113,41 +119,44 @@
                 document.getElementById("retry").style.display = "none"; 
                 document.getElementById("leftChance").innerHTML ="Congrats! You do it Succesfully" ; 
                 document.getElementById("leftChance").style.color = "green"
+            } else if(disableButton==="0"){
+                document.getElementById('submitButton').disabled= true;
+                document.getElementById("leftChance").innerHTML ="You already cross your limit, Try again Later" ;
+                document.getElementById("leftChance").style.color ="red" ;
             }
             else{
                 document.getElementById("retry").style.display = "block";
                 document.getElementById("successTry").style.display = "none"; 
-                document.getElementById("leftChance").innerHTML ="2 try left" ;
+                document.getElementById("leftChance").innerHTML =disp.innerHTML +" " +"try left" ; 
+                document.getElementById("leftChance").style.color ="red" ;
             }
         }
-        
+    //verify function called on submit button onclick
         const submitButton = document.getElementById("submitButton");
         submitButton.addEventListener('click', verifyPin)
         
         
 
 
-
+    // this one for backspace button
         const deleteButton = document.getElementById('deleteButton');
         deleteButton.addEventListener('click',function(event){
             let inputCode = document.getElementById("output-value").value;
             document.getElementById("output-value").value = inputCode.substr(0, inputCode.length -1);
 
         })
-
+    
+    //this one for clear button
         const clearButton = document.getElementById('clearButton');
         clearButton.addEventListener('click', function(){
             let inputCode = document.getElementById("output-value");
             inputCode.value = "";
 
         })
-
-
-
-        var leftTry = document.getElementById('clicks').innerHTML;
-
-
         
    </script>
+
+
+
 </body>
 </html>
